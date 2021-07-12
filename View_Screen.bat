@@ -1,5 +1,9 @@
 @ECHO off
-@CD bin
+if "%PROCESSOR_ARCHITECTURE%" == "x86" (
+	CD bin\win32 
+) ELSE (
+	CD bin\win64
+)
 SET NEXT_GOTO=END
 
 IF /I "%1" == "/?" GOTO HELP

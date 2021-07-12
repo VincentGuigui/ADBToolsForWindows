@@ -1,5 +1,5 @@
 @echo off
-cd bin
+cd bin\win32
 echo Enabling USB on the device
 adb shell svc usb setFunctions mtp,adb true
 echo ...
