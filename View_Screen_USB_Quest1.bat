@@ -1,1 +1,1 @@
-View_screen.bat usb quest1
+Start_WindowLess.bat View_Screen.bat usb quest1

@@ -1,1 +1,1 @@
-View_screen.bat wifi quest1
+Start_WindowLess.bat View_Screen.bat wifi quest1
