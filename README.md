@@ -8,7 +8,16 @@ Portable version of ADB and .bat files for everyday development/debugging of And
 * enable screen copy/mirroring through WiFi 
 * install APK application though USB 
 
-  
+# Requirements
+* The device should have USB Debugging enabled
+  * For Android phones: [enable the **Developer Options**](https://developer.android.com/studio/debug/dev-options), then [enable USB debugging](https://developer.android.com/studio/debug/dev-options#Enable-debugging)
+  * For VR headset like Meta Quest:
+    * You need a developer account and used this account to register the device.
+    * Using the Meta Horizon mobile app, enable Developer Mode
+    * On the device, enable USB Debugging
+    * Detailed walkthrough [here](https://developers.meta.com/horizon/documentation/native/android/mobile-device-setup/)
+* Don't forget to authorize your computer to access the device. You will see a popup the 1st time you connect the device to your computer.
+
 # FAQ
 
 
