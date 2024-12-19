@@ -1,8 +1,8 @@
 @ECHO off
 if "%PROCESSOR_ARCHITECTURE%" == "x86" (
-	CD bin\win32 
+	set "PATH=%PATH%;%cd%\bin\win32"
 ) ELSE (
-	CD bin\win64
+	set "PATH=%PATH%;%cd%\bin\win64"
 )
 SET NEXT_GOTO=END
 
@@ -247,7 +247,7 @@ GOTO VIEW_WIFI
 
 :MAIN_DISCONNECT_CHOICE
 IF /I "%CONNECTION_ARG%" == "WIFI" (	
-	choice /M "Do you want to break the WiFi connection between the Devices and the computer ?"
+	choice /M "Do you want to stop the WiFi connection between the device and the computer ?"
 	IF /I "%ERRORLEVEL%" == "2" GOTO END
 	SET NEXT_GOTO=END
 	GOTO DISCONNECT
@@ -255,4 +255,3 @@ IF /I "%CONNECTION_ARG%" == "WIFI" (
 GOTO END
 
 :END
-CD ..
