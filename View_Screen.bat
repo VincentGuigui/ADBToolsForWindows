@@ -11,9 +11,9 @@ IF /I "%1" == "-?" GOTO HELP
 
 :ARGS_MANAGEMENT
 SET DEVICE_ARG=
-FOR %%G IN ("phone" "quest1" "quest2" "quest3") DO (IF /I "%1" == %%G SET DEVICE_ARG=%1)
-FOR %%G IN ("phone" "quest1" "quest2" "quest3") DO (IF /I "%2" == %%G SET DEVICE_ARG=%2)
-FOR %%G IN ("phone" "quest1" "quest2" "quest3") DO (IF /I "%3" == %%G SET DEVICE_ARG=%3)
+FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s") DO (IF /I "%1" == %%G SET DEVICE_ARG=%1)
+FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s") DO (IF /I "%2" == %%G SET DEVICE_ARG=%2)
+FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s") DO (IF /I "%3" == %%G SET DEVICE_ARG=%3)
 SET CONNECTION_ARG=
 FOR %%G IN ("usb" "wifi") DO (IF /I "%1" == %%G SET CONNECTION_ARG=%1)
 FOR %%G IN ("usb" "wifi") DO (IF /I "%2" == %%G SET CONNECTION_ARG=%2)
@@ -24,13 +24,13 @@ FOR %%G IN ("devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "
 FOR %%G IN ("devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%3" == %%G SET ACTION_ARG=%3)
 
 SET DEVICE_ID=%1
-FOR %%G IN ("phone" "quest1" "quest2" "quest3" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
+FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
 IF /I "%DEVICE_ID%" == "" (
 	SET DEVICE_ID=%2
-	FOR %%G IN ("phone" "quest1" "quest2" "quest3" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
+	FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
 	IF /I "%DEVICE_ID%" == "" (
 		SET DEVICE_ID=%3
-		FOR %%G IN ("phone" "quest1" "quest2" "quest3" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
+		FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
 		)
 	)
 
@@ -50,6 +50,8 @@ IF "%CONNECTION_ARG%" == "" (
 IF /I "%DEVICE_ARG%" == "phone" SET SCRCPY_ARGS=
 IF /I "%DEVICE_ARG%" == "quest1" SET SCRCPY_ARGS=--crop 1280:720:1500:350 
 IF /I "%DEVICE_ARG%" == "quest2" SET SCRCPY_ARGS=--crop 1600:900:2017:510
+IF /I "%DEVICE_ARG%" == "quest3s" SET SCRCPY_ARGS=--crop 1600:900:2017:510
+# Quest 3, must upgrade scrcpy and use --rotation-offset=-22 --scale=195 --position-x-offset=-520 --position-y-offset=-490
 IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2064:2208:2064:100
 
 ECHO 	ACTION_ARG=%ACTION_ARG%
@@ -74,7 +76,9 @@ ECHO P:Phone
 ECHO 1:Oculus Quest 1
 ECHO 2:Oculus Quest 2
 ECHO 3:Oculus Quest 3
-choice /C P12 /D P /T 5
+ECHO S:Oculus Quest 3S
+choice /C P123S /D P /T 5
+IF /I "%ERRORLEVEL%" == "5" SET DEVICE_ARG=quest3s
 IF /I "%ERRORLEVEL%" == "4" SET DEVICE_ARG=quest3
 IF /I "%ERRORLEVEL%" == "3" SET DEVICE_ARG=quest2
 IF /I "%ERRORLEVEL%" == "2" SET DEVICE_ARG=quest1
@@ -134,6 +138,7 @@ ECHO   phone       full mirroring
 ECHO   quest1      mirror only one eye with Quest 1 resolution
 ECHO   quest2      mirror only one eye with Quest 2 resolution
 ECHO   quest3      mirror only one eye with Quest 3 resolution
+ECHO   quest3s      mirror only one eye with Quest 3S resolution
 ECHO [device_id]   Specify the device ID if you know it
 ECHO   (nothing)   Devices IDs will be displayed and prompt if more than one device is connected
 ECHO #################
