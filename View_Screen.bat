@@ -38,6 +38,7 @@ IF "%DEVICE_ARG%" == "" (
 	SET NEXT_GOTO=ARGS_MANAGEMENT_ACTION_NEXT
 	FOR %%G IN ("" "view_usb" "view_wifi") DO (IF /I "%ACTION_ARG%" == %%G GOTO SELECT_DEVICE_TYPE)
 	)
+	
 :ARGS_MANAGEMENT_ACTION_NEXT
 FOR %%G IN ("network" "view_wifi" "disconnect") DO (IF /I "%ACTION_ARG%" == %%G SET CONNECTION_ARG=WIFI)
 FOR %%G IN ("view_usb") DO (IF /I "%ACTION_ARG%" == %%G SET CONNECTION_ARG=USB)
@@ -45,14 +46,15 @@ IF "%CONNECTION_ARG%" == "" (
 	SET NEXT_GOTO=ARGS_MANAGEMENT_CONNECTION_NEXT
 	IF "%ACTION_ARG%" == "" GOTO SELECT_CONNECTION_TYPE
 	)
+	
 :ARGS_MANAGEMENT_CONNECTION_NEXT
 
 IF /I "%DEVICE_ARG%" == "phone" SET SCRCPY_ARGS=
 IF /I "%DEVICE_ARG%" == "quest1" SET SCRCPY_ARGS=--crop 1280:720:1500:350 
 IF /I "%DEVICE_ARG%" == "quest2" SET SCRCPY_ARGS=--crop 1600:900:2017:510
 IF /I "%DEVICE_ARG%" == "quest3s" SET SCRCPY_ARGS=--crop 1600:900:2017:510
-# Quest 3, must upgrade scrcpy and use --rotation-offset=-22 --scale=195 --position-x-offset=-520 --position-y-offset=-490
-IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2064:2208:2064:100
+REM IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350   --rotation-offset=20  --scale=159 --position-x-offset=-800 --position-y-offset=-500
+IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2064:2208:2064:100 --rotation-offset=-22 --scale=195 --position-x-offset=-520 --position-y-offset=-490
 
 ECHO 	ACTION_ARG=%ACTION_ARG%
 ECHO 	CONNECTION_ARG=%CONNECTION_ARG%
@@ -60,7 +62,6 @@ ECHO 	DEVICE_ARG=%DEVICE_ARG%
 ECHO 	DEVICE_ID=%DEVICE_ID%
 IF NOT "%DEVICE_ID%" == "" SET DEVICE_ID=-s %DEVICE_ID%
 ECHO 	SCRCPY_ARGS=%SCRCPY_ARGS%
-
 
 SET NEXT_GOTO=END
 IF /I "%ACTION_ARG%" == "devices" GOTO ACTION_DEVICES
