@@ -58,8 +58,8 @@ IF /I "%DEVICE_ARG%" == "phone" SET SCRCPY_ARGS=
 IF /I "%DEVICE_ARG%" == "quest1" SET SCRCPY_ARGS=--crop 1280:720:1500:350 
 IF /I "%DEVICE_ARG%" == "quest2" SET SCRCPY_ARGS=--crop 1600:900:2017:510
 IF /I "%DEVICE_ARG%" == "quest3s" SET SCRCPY_ARGS=--crop 1600:900:2017:510
-REM IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350   --rotation-offset=20  --scale=159 --position-x-offset=-800 --position-y-offset=-500
-IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2064:2208:2064:100 --rotation-offset=-22 --scale=195 --position-x-offset=-520 --position-y-offset=-490
+IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350   --rotation-offset=20  --scale=160 --position-x-offset=-600 --position-y-offset=-480
+REM IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2064:2208:2064:100 --rotation-offset=-22 --scale=195 --position-x-offset=-520 --position-y-offset=-490
 
 ECHO 	ACTION_ARG=%ACTION_ARG%
 ECHO 	CONNECTION_ARG=%CONNECTION_ARG%
