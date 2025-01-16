@@ -1,4 +1,9 @@
 @ECHO off
+echo:
+echo VIEW_SCREEN - v1.2 - https://github.com/VincentGuigui/ADBToolsForWindows
+echo View the screen of you android devices (phone and HMD) using USB or Wi-Fi
+echo:
+
 if "%PROCESSOR_ARCHITECTURE%" == "x86" (
 	set "PATH=%PATH%;%cd%\bin\win32"
 ) ELSE (
