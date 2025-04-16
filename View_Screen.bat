@@ -1,6 +1,6 @@
 @ECHO off
 echo:
-echo VIEW_SCREEN - v1.2 - https://github.com/VincentGuigui/ADBToolsForWindows
+echo VIEW_SCREEN - v1.3 - https://github.com/VincentGuigui/ADBToolsForWindows
 echo View the screen of you android devices (phone and HMD) using USB or Wi-Fi
 echo:
 
@@ -58,8 +58,9 @@ IF /I "%DEVICE_ARG%" == "phone" SET SCRCPY_ARGS=
 IF /I "%DEVICE_ARG%" == "quest1" SET SCRCPY_ARGS=--crop 1280:720:1500:350 
 IF /I "%DEVICE_ARG%" == "quest2" SET SCRCPY_ARGS=--crop 1600:900:2017:510
 IF /I "%DEVICE_ARG%" == "quest3s" SET SCRCPY_ARGS=--crop 1600:900:2017:510
-IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350   --rotation-offset=20  --scale=160 --position-x-offset=-600 --position-y-offset=-480
-REM IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2064:2208:2064:100 --rotation-offset=-22 --scale=195 --position-x-offset=-520 --position-y-offset=-490
+IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2744:1544:0:0 --rotation-offset=22 --scale=160 --position-x-offset=00 --position-y-offset=-100 -b 16M 
+rem IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350 --rotation-offset=20  --scale=160 --position-x-offset=-600 --position-y-offset=-480 -b 16M 
+rem IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350  --rotation-offset=-22 --scale=195 --position-x-offset=-1200 --position-y-offset=-500
 
 ECHO 	ACTION_ARG=%ACTION_ARG%
 ECHO 	CONNECTION_ARG=%CONNECTION_ARG%
@@ -216,6 +217,7 @@ GOTO %NEXT_GOTO%
 
 :VIEW_WIFI
 adb connect %ip_address%:5555
+REM if /I "%DEVICE_ARG%" == "quest3" (set SCRCPY_ARGS=%SCRCPY_ARGS% -max-fps 15 -b 1M --max-size 1080 --display-buffer 100)
 scrcpy %SCRCPY_ARGS% -s %ip_address%:5555
 GOTO %NEXT_GOTO%
 
