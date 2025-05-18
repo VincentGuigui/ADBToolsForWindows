@@ -1,0 +1,1 @@
+bin\win64\adb shell am start -a android.intent.action.MAIN -d systemux://guardian/room-capture com.oculus.vrshell/.MainActivity
