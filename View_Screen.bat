@@ -89,7 +89,7 @@ ECHO 2:Oculus Quest 2
 ECHO 3:Oculus Quest 3
 ECHO S:Oculus Quest 3S
 ECHO X:Rhino X2
-choice /C P123S9 /D P /T 5
+choice /C P123SX /D P /T 5
 IF /I "%ERRORLEVEL%" == "6" SET DEVICE_ARG=rhinox2
 IF /I "%ERRORLEVEL%" == "5" SET DEVICE_ARG=quest3s
 IF /I "%ERRORLEVEL%" == "4" SET DEVICE_ARG=quest3
