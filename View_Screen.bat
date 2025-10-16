@@ -1,4 +1,9 @@
 @ECHO off
+set devices="phone" "quest1" "quest2" "quest3" "quest3s" "rhinox2"
+set connections="usb" "wifi"
+set actions="devices" "network" "view_usb" "view_wifi" "disconnect"
+set all_params=%devices% %connections% %actions%
+
 echo:
 echo VIEW_SCREEN - v1.3 - https://github.com/VincentGuigui/ADBToolsForWindows
 echo View the screen of you android devices (phone and HMD) using USB or Wi-Fi
@@ -16,26 +21,26 @@ IF /I "%1" == "-?" GOTO HELP
 
 :ARGS_MANAGEMENT
 SET DEVICE_ARG=
-FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s") DO (IF /I "%1" == %%G SET DEVICE_ARG=%1)
-FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s") DO (IF /I "%2" == %%G SET DEVICE_ARG=%2)
-FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s") DO (IF /I "%3" == %%G SET DEVICE_ARG=%3)
+FOR %%G IN (%devices%) DO (IF /I "%1" == %%G SET DEVICE_ARG=%1)
+FOR %%G IN (%devices%) DO (IF /I "%2" == %%G SET DEVICE_ARG=%2)
+FOR %%G IN (%devices%) DO (IF /I "%3" == %%G SET DEVICE_ARG=%3)
 SET CONNECTION_ARG=
-FOR %%G IN ("usb" "wifi") DO (IF /I "%1" == %%G SET CONNECTION_ARG=%1)
-FOR %%G IN ("usb" "wifi") DO (IF /I "%2" == %%G SET CONNECTION_ARG=%2)
-FOR %%G IN ("usb" "wifi") DO (IF /I "%3" == %%G SET CONNECTION_ARG=%3)
+FOR %%G IN (%connections%) DO (IF /I "%1" == %%G SET CONNECTION_ARG=%1)
+FOR %%G IN (%connections%) DO (IF /I "%2" == %%G SET CONNECTION_ARG=%2)
+FOR %%G IN (%connections%) DO (IF /I "%3" == %%G SET CONNECTION_ARG=%3)
 SET ACTION_ARG=
-FOR %%G IN ("devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%1" == %%G SET ACTION_ARG=%1)
-FOR %%G IN ("devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%2" == %%G SET ACTION_ARG=%2)
-FOR %%G IN ("devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%3" == %%G SET ACTION_ARG=%3)
+FOR %%G IN (%actions%) DO (IF /I "%1" == %%G SET ACTION_ARG=%1)
+FOR %%G IN (%actions%) DO (IF /I "%2" == %%G SET ACTION_ARG=%2)
+FOR %%G IN (%actions%) DO (IF /I "%3" == %%G SET ACTION_ARG=%3)
 
 SET DEVICE_ID=%1
-FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
+FOR %%G IN (%devices% %connections% %actions%) DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
 IF /I "%DEVICE_ID%" == "" (
 	SET DEVICE_ID=%2
-	FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
+	FOR %%G IN (%devices% %connections% %actions%) DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
 	IF /I "%DEVICE_ID%" == "" (
 		SET DEVICE_ID=%3
-		FOR %%G IN ("phone" "quest1" "quest2" "quest3" "quest3s" "usb" "wifi" "devices" "network" "view_usb" "view_wifi" "disconnect") DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
+		FOR %%G IN (%devices% %connections% %actions%) DO (IF /I "%DEVICE_ID%" == %%G SET DEVICE_ID=)
 		)
 	)
 
@@ -58,9 +63,8 @@ IF /I "%DEVICE_ARG%" == "phone" SET SCRCPY_ARGS=
 IF /I "%DEVICE_ARG%" == "quest1" SET SCRCPY_ARGS=--crop 1280:720:1500:350 
 IF /I "%DEVICE_ARG%" == "quest2" SET SCRCPY_ARGS=--crop 1600:900:2017:510
 IF /I "%DEVICE_ARG%" == "quest3s" SET SCRCPY_ARGS=--crop 1600:900:2017:510
-IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2744:1544:0:0 --rotation-offset=22 --scale=160 --position-x-offset=00 --position-y-offset=-100 -b 16M 
-rem IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350 --rotation-offset=20  --scale=160 --position-x-offset=-600 --position-y-offset=-480 -b 16M 
-rem IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=1920:1440:20:350  --rotation-offset=-22 --scale=195 --position-x-offset=-1200 --position-y-offset=-500
+IF /I "%DEVICE_ARG%" == "quest3" SET SCRCPY_ARGS=--crop=2744:1544:0:0 --angle=22 -b 16M 
+IF /I "%DEVICE_ARG%" == "rhinox2" SET SCRCPY_ARGS=--crop=700:1000:200:350 --capture-orientation=270
 
 ECHO 	ACTION_ARG=%ACTION_ARG%
 ECHO 	CONNECTION_ARG=%CONNECTION_ARG%
@@ -84,7 +88,9 @@ ECHO 1:Oculus Quest 1
 ECHO 2:Oculus Quest 2
 ECHO 3:Oculus Quest 3
 ECHO S:Oculus Quest 3S
-choice /C P123S /D P /T 5
+ECHO X:Rhino X2
+choice /C P123S9 /D P /T 5
+IF /I "%ERRORLEVEL%" == "6" SET DEVICE_ARG=rhinox2
 IF /I "%ERRORLEVEL%" == "5" SET DEVICE_ARG=quest3s
 IF /I "%ERRORLEVEL%" == "4" SET DEVICE_ARG=quest3
 IF /I "%ERRORLEVEL%" == "3" SET DEVICE_ARG=quest2
