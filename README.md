@@ -138,6 +138,6 @@ C:\ADBToolsForWindows\bin>
 # Included
 * ADB 
   * Android Debug Bridge version 1.0.41
-  * Version 31.0.2-7242960
+  * Version 36.0.0-13206524
 * scrcopy [Genymobile scrcpy](https://github.com/Genymobile/scrcpy)
-  * Version 1.18
+  * Version 3.3.3 
